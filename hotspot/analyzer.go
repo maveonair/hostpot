@@ -22,6 +22,14 @@ func Analyze() RepositoryFiles {
 	return analyzeGitLog(string(output))
 }
 
+func AnalyzeDestination(dest string) RepositoryFiles {
+	currentDir, _ := os.Getwd()
+	os.Chdir(dest)
+	r := Analyze()
+	os.Chdir(currentDir)
+	return r
+}
+
 func analyzeGitLog(log string) RepositoryFiles {
 	data := make(map[string]int)
 	i := 0
