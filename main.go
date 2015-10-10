@@ -4,22 +4,12 @@ import (
 	"flag"
 	"fmt"
 	"os"
-	"os/exec"
 
 	"github.com/maveonair/hotspot/hotspot"
 )
 
 func main() {
-	cmdName := "git"
-	cmdArgs := []string{"log", "--numstat", "--oneline", "--pretty=format:''"}
-
-	output, err := exec.Command(cmdName, cmdArgs...).Output()
-	if err != nil {
-		fmt.Fprintln(os.Stderr, "Error executing git log command", err)
-		os.Exit(1)
-	}
-
-	r := hotspot.Analyze(string(output))
+	r := hotspot.Analyze()
 	printRepositoryFiles(r)
 }
 

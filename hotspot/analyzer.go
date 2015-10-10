@@ -4,11 +4,25 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"os/exec"
 	"sort"
 	"strings"
 )
 
-func Analyze(log string) RepositoryFiles {
+func Analyze() RepositoryFiles {
+	cmdName := "git"
+	cmdArgs := []string{"log", "--numstat", "--oneline", "--pretty=format:''"}
+
+	output, err := exec.Command(cmdName, cmdArgs...).Output()
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "Error executing git log command", err)
+		os.Exit(1)
+	}
+
+	return analyzeGitLog(string(output))
+}
+
+func analyzeGitLog(log string) RepositoryFiles {
 	data := make(map[string]int)
 	i := 0
 
