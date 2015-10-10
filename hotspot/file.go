@@ -1,4 +1,4 @@
-package main
+package hotspot
 
 import (
 	"encoding/json"
