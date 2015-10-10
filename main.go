@@ -24,5 +24,6 @@ func printRepositoryFiles(repositoryFiles hotspot.RepositoryFiles) {
 	}
 
 	csv := repositoryFiles.ToCSV()
+	fmt.Println("file path,revisions,code")
 	fmt.Println(csv)
 }

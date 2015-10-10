@@ -8,9 +8,9 @@ import (
 )
 
 type RepositoryFile struct {
-	FilePath string `json:"file_path"`
-	Churn    int    `json:"churn"`
-	Lines    int    `json:"lines"`
+	FilePath  string `json:"file_path"`
+	Revisions int    `json:"revisions"`
+	Code      int    `json:"code"`
 }
 
 type RepositoryFiles []RepositoryFile
@@ -20,7 +20,7 @@ func (r RepositoryFiles) Len() int {
 }
 
 func (r RepositoryFiles) Less(i, j int) bool {
-	return r[i].Churn < r[j].Churn
+	return r[i].Revisions < r[j].Revisions
 }
 
 func (r RepositoryFiles) Swap(i, j int) {
@@ -30,7 +30,7 @@ func (r RepositoryFiles) Swap(i, j int) {
 func (r RepositoryFiles) ToCSV() string {
 	csv := []string{}
 	for _, repositoryFile := range r {
-		line := fmt.Sprintf("%s,%d,%d", repositoryFile.FilePath, repositoryFile.Churn, repositoryFile.Lines)
+		line := fmt.Sprintf("%s,%d,%d", repositoryFile.FilePath, repositoryFile.Revisions, repositoryFile.Code)
 		csv = append(csv, line)
 	}
 
